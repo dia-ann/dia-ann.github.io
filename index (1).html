@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dia Ann Saji Portfolio</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0}
+/* Layout: one narrow reading column; each project is a row with a mono "spec" rail beside the prose. */
+:root {
+  --bg: #F2F5F3;
+  --surface: #FFFFFF;
+  --fg: #14211D;
+  --muted: #55655F;
+  --line: #CAD5D0;
+  --accent: #0E6B5A;
+  --accent-ink: #FFFFFF;
+  --signal: #B4620F;
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1512; --surface: #141F1B; --fg: #E6EEEA; --muted: #9AABA4; --line: #26362F;
+    --accent: #4CC2A8; --accent-ink: #08201A; --signal: #E39A4A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1512; --surface: #141F1B; --fg: #E6EEEA; --muted: #9AABA4; --line: #26362F;
+  --accent: #4CC2A8; --accent-ink: #08201A; --signal: #E39A4A; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  padding-inline: 20px; padding-block: 40px 72px;
+}
+.wrap { max-width: 860px; margin-inline: auto; display: grid; gap: 64px; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.12; }
+.label { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+/* Header */
+header { display: grid; gap: 20px; padding-bottom: 36px; border-bottom: 2px solid var(--fg); }
+h1 { font-size: clamp(2.4rem, 8vw, 4.2rem); font-weight: 700; letter-spacing: -0.02em; }
+.role { font-size: 1.15rem; max-width: 56ch; margin: 0; }
+.contact { display: flex; flex-wrap: wrap; gap: 8px 24px; font-family: var(--font-mono); font-size: 14px; align-items: center; }
+.contact span { overflow-wrap: anywhere; }
+.copy {
+  font: inherit; font-size: 12px; color: var(--accent); background: transparent;
+  border: 1px solid var(--accent); border-radius: 4px; padding: 2px 8px; cursor: pointer;
+}
+.copy:hover { background: var(--accent); color: var(--accent-ink); }
+
+/* Sections */
+section { display: grid; gap: 24px; }
+h2 { font-size: 1.7rem; font-weight: 700; }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* Projects */
+.project { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 12px 32px; padding-top: 24px; border-top: 1px solid var(--line); }
+.spec { display: grid; gap: 6px; align-content: start; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.spec b { display: block; color: var(--fg); font-weight: 500; font-size: 14px; }
+.project h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 8px; }
+.project p { margin: 0 0 12px; max-width: 62ch; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 12px 0 0; list-style: none; }
+.tags li { font-family: var(--font-mono); font-size: 12px; border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; background: var(--surface); }
+.status { color: var(--signal); }
+
+/* Results table inside the feature project */
+.table-scroll { overflow-x: auto; margin: 16px 0 4px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 440px; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; }
+.note { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+
+/* Skills + leadership */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.skills h3 { font-size: 1rem; font-family: var(--font-mono); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.skills p { margin: 0; min-width: 0; }
+.lead { display: grid; gap: 20px; }
+.lead div { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 4px 32px; padding-top: 16px; border-top: 1px solid var(--line); }
+.lead h3 { font-size: 1.05rem; }
+.lead p { margin: 0; color: var(--muted); }
+
+footer { font-family: var(--font-mono); font-size: 13px; color: var(--muted); border-top: 2px solid var(--fg); padding-top: 16px; }
+
+@media (max-width: 640px) {
+  .project, .lead div { grid-template-columns: minmax(0, 1fr); }
+  .wrap { gap: 48px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .copy { transition: background 0.15s, color 0.15s; }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="label">Computer Engineering · Class of 2027 · Goa</span>
+    <h1>Dia Ann Saji</h1>
+    <p class="role">Final-year Computer Engineering student who builds machine learning systems end to end: data cleaning, model training, a working API, and deployment.</p>
+    <div class="contact">
+      <span id="email">dia96716@gmail.com</span>
+      <button class="copy" id="copy-email" type="button">Copy</button>
+      <span>9699259703</span>
+      <span>Mapusa, Goa</span>
+      <a href="https://github.com/dia-ann">GitHub</a>
+      <a href="https://www.linkedin.com/in/dia-ann-saji/">LinkedIn</a>
+    </div>
+  </header>
+
+  <section aria-labelledby="exp">
+    <div class="sec-head"><h2 id="exp">Experience</h2></div>
+    <article class="project">
+      <div class="spec">
+        <span><b>03 Aug – 03 Oct 2026</b>2 months</span>
+      </div>
+      <div>
+        <h3>Mentee, Persistent Mentorship Programme</h3>
+        <p>A mentored internship program where a team of four took a customer support ticket system from requirements and research to deployment and demo. The result is Deskwise, described below.</p>
+        <p>Hands-on experience in NLP model training, API development and cloud deployment.</p>
+        <ul class="tags"><li>NLP</li><li>API development</li><li>Cloud deployment</li></ul>
+      </div>
+    </article>
+  </section>
+
+  <section aria-labelledby="work">
+    <div class="sec-head"><h2 id="work">Selected work</h2><span class="label">Newest first</span></div>
+
+    <article class="project">
+      <div class="spec">
+        <span><b>Persistent Mentorship Programme</b>2026 · Team of 4</span>
+        <span>My part: the ML models</span>
+      </div>
+      <div>
+        <h3>Deskwise: AI-Based Customer Support Ticket System</h3>
+        <p>A support desk that handles a ticket from the moment a customer submits it. Personal details are redacted, then three models predict the ticket's department, priority and sentiment. It joins the queue of one of seven departments, where support agents claim and resolve it.</p>
+        <p>Access is role-based for customers, support agents, department managers and admins. Tickets that are both high priority and negative also reach the department manager, and admins create departments, assign staff and see live ticket counts. The backend runs on FastAPI and Supabase with a React frontend on Vercel and Render, and the quantized ONNX models are served from Hugging Face.</p>
+        <p>I trained the department and priority classifiers. I started with a TF-IDF and LinearSVC baseline, then fine-tuned DistilBERT with class-weighted loss, because the support categories overlap heavily and the baseline kept confusing them.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Model</th><th>Task</th><th class="num">Accuracy</th><th class="num">Macro-F1</th></tr></thead>
+            <tbody>
+              <tr><td>DistilBERT</td><td>Department (7 classes)</td><td class="num">74%</td><td class="num">0.722</td></tr>
+              <tr><td>DistilBERT</td><td>Priority (3 classes)</td><td class="num">67.6%</td><td class="num">0.663</td></tr>
+              <tr><td>TF-IDF + LinearSVC</td><td>Baseline, 10 categories</td><td class="num">57.6%</td><td class="num">0.589</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Held-out test data from about 25,000 English tickets. The baseline task used 10 categories, so its numbers are not directly comparable with the 7-department model.</p>
+        <ul class="tags"><li>DistilBERT</li><li>FastAPI</li><li>React</li><li>Supabase</li><li>ONNX Runtime</li><li>Hugging Face</li></ul>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="spec">
+        <span><b>SRIJAN 2026</b>Competition · Team</span>
+      </div>
+      <div>
+        <h3>BUGORACLE</h3>
+        <p>An AI-agent release testing system that uses project context to decide what to test. A retrieval pipeline built on ChromaDB and the all-MiniLM-L6-v2 sentence model feeds a multi-agent CrewAI workflow, connected to Jira and Azure DevOps and fronted by a Streamlit app.</p>
+        <ul class="tags"><li>CrewAI</li><li>RAG</li><li>ChromaDB</li><li>Groq</li><li>Streamlit</li></ul>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="spec">
+        <span><b>Final-year project</b>2026–27</span>
+        <span class="status">In progress</span>
+      </div>
+      <div>
+        <h3>Forest Fire Risk Analysis from Satellite Data</h3>
+        <p>A two-stage framework for fire-prone forest regions in India. A U-Net/LSTM model produces a daily fire probability map, then a Cellular Automata simulation shows how a fire could spread across terrain and land cover.</p>
+        <p>Inputs are VIIRS fire hotspots, ERA-5 weather, a digital elevation model, land use maps and human settlement data.</p>
+        <ul class="tags"><li>U-Net</li><li>LSTM</li><li>Cellular Automata</li><li>Remote sensing</li></ul>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="spec">
+        <span><b>Side project</b>2026</span>
+        <span class="status">In progress</span>
+      </div>
+      <div>
+        <h3>AI Wardrobe Stylist</h3>
+        <p>An app where you upload photos of your clothes and it suggests outfits. It will complete an outfit from one item, check whether two items match, or assemble a full outfit for an occasion such as college, work or formal.</p>
+        <ul class="tags"><li>Computer vision</li><li>Recommendation</li><li>Data engineering</li></ul>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="spec">
+        <span><b>Team project</b>2025</span>
+      </div>
+      <div>
+        <h3>AgroAssist: AI Powered Farming Assistant</h3>
+        <p>A farming assistant for a mobile app. A MobileNetV2 CNN spots crop diseases from leaf photos, an NLP chatbot answers organic farming questions, and a 7-day weather forecast helps farmers plan cultivation.</p>
+        <ul class="tags"><li>TensorFlow</li><li>MobileNetV2</li><li>NLP</li></ul>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="spec">
+        <span><b>Team project</b>2024</span>
+      </div>
+      <div>
+        <h3>AquaMate: Simplifying Fish Care</h3>
+        <p>A fish care assistant. A YOLOv8 model identifies aquarium fish species in real time, and the app uses researched pH and temperature ranges per species to drive automated monitoring with sensors.</p>
+        <ul class="tags"><li>YOLOv8</li><li>Image datasets</li><li>Sensors</li></ul>
+      </div>
+    </article>
+  </section>
+
+  <section aria-labelledby="skills">
+    <h2 id="skills">Skills</h2>
+    <div class="skills">
+      <div><h3>Languages</h3><p>Python, C, C++, Java, JavaScript, PHP, SQL</p></div>
+      <div><h3>AI and ML</h3><p>TensorFlow, Hugging Face Transformers, YOLOv8, CNNs, NLP, RAG, CrewAI, scikit-learn</p></div>
+      <div><h3>Web and data</h3><p>React, FastAPI, HTML, CSS, Supabase, DBMS, data cleaning and preprocessing</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="lead">
+    <h2 id="lead">Leadership</h2>
+    <div class="lead">
+      <div>
+        <h3>Former General Secretary, ACCESS</h3>
+        <p>Computer Engineering Department student council, Agnel Institute of Engineering and Management. Organized technical and cultural events, managed logistics and coordinated with faculty and students.</p>
+      </div>
+      <div>
+        <h3>Former Member, Institute's Innovation Council</h3>
+        <p>Helped organize competitions and innovation events at the institute.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>B.E. Computer Engineering, Agnel Institute of Engineering and Management, Assagao, Goa · 2023–2027</footer>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy-email');
+  var text = document.getElementById('email').textContent;
+  btn.addEventListener('click', function () {
+    function done() { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1500); }
+    try {
+      navigator.clipboard.writeText(text).then(done, function () { select(); });
+    } catch (e) { select(); }
+    function select() {
+      var r = document.createRange();
+      r.selectNodeContents(document.getElementById('email'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
